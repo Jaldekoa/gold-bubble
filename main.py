@@ -24,14 +24,14 @@ ticker = "GC=F"
 
 DATA_START = "2022-01-01"
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def get_data(ticker, start):
     end = dt.today().strftime('%Y-%m-%d')
     df = yf.download(ticker, start=start, end=end, multi_level_index=False, auto_adjust=False)
     df.reset_index(inplace=True)
     return df
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def find_bubble_start(df):
     # Preparación de datos
     time = np.arange(len(df))
@@ -59,7 +59,7 @@ def find_bubble_start(df):
         return start_date_detected
     return None
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def compute_lppls_parameters(time, price_log):
     observations = np.array([time, price_log])
     lppls_model = lppls_cmaes.LPPLSCMAES(observations=observations)
@@ -132,10 +132,10 @@ if not full_data.empty:
             return fig
 
         with tab_log:
-            st.plotly_chart(create_fig(price_log, fit_log_truncated, "Log(Price)"), use_container_width=True, config={'displayModeBar': False})
+            st.plotly_chart(create_fig(price_log, fit_log_truncated, "Log(Price)"), width='stretch', config={'displayModeBar': False})
 
         with tab_nominal:
-            st.plotly_chart(create_fig(data['Adj Close'].values, fit_nominal_truncated, "Price (USD)"), use_container_width=True, config={'displayModeBar': False})
+            st.plotly_chart(create_fig(data['Adj Close'].values, fit_nominal_truncated, "Price (USD)"), width='stretch', config={'displayModeBar': False})
     else:
         st.error("Could not determine a bubble start time.")
 else:
