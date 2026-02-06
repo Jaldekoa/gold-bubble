@@ -10,13 +10,10 @@ st.set_page_config(page_title="Gold Bubble Analyzer", page_icon="🎈", initial_
 
 st.markdown("""
     <style>
-        .block-container {padding-top: 1.5rem; padding-bottom: 0rem;}
-        h1 {margin-top: -1rem; margin-bottom: 0.5rem; font-size: 2.8rem !important; text-align: center;}
-        [data-testid="stMetricValue"] { font-size: 1.6rem !important; word-break: break-word; }
-        [data-testid="stMetricLabel"] { font-size: 0.9rem !important; }
-        .stTabs [data-baseweb="tab-list"] {gap: 20px;}
+            h1 {text-align: center; padding-bottom: 1rem !important;}
+            .stHorizontalBlock {padding: 1rem !important;}            
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.title("🎈 The Gold Bubble (GC=F) 🎈")
 
